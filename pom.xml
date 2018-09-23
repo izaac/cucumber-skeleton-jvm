@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>iz.uitesting</groupId>
+    <artifactId>cucumber.skeleton</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>Java Project Skeleton</name>
+    <description>A basic Selenium POM file</description>
+    <url>https://izaac.me</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>10</java.version>
+        <!-- Dependency versions -->
+        <selenium.version>3.14.0</selenium.version>
+        <testng.version>6.14.3</testng.version>
+        <!-- Plugin versions -->
+        <driver-binary-downloader-maven-plugin.version>1.0.17</driver-binary-downloader-maven-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+        <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+        <!-- Configurable variables -->
+        <threads>1</threads>
+        <browser>firefox</browser>
+        <overwrite.binaries>false</overwrite.binaries>
+        <headless>true</headless>
+        <remote>false</remote>
+        <seleniumGridURL/>
+        <platform/>
+        <browserVersion/>
+        <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
+        <cucumber_version>3.0.2</cucumber_version>
+        <!--<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>-->
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+                <version>${maven-compiler-plugin.version}</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-remote-driver</artifactId>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+        <!--<dependency>-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-surefire-plugin</artifactId>-->
+            <!--<version>${maven-surefire-plugin.version}</version>-->
+        <!--</dependency>-->
+
+        <!-- http://mvnrepository.com/artifact/io.cucumber/cucumber-core -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <version>${cucumber_version}</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>${cucumber_version}</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+            <version>${cucumber_version}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+            <version>${cucumber_version}</version>
+        </dependency>
+        <!-- http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>3.14.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vimalselvam</groupId>
+            <artifactId>cucumber-extentsreport</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+    </dependencies>
+
+    <profiles>
+        <profile>
+            <id>selenium</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>com.lazerycode.selenium</groupId>
+                        <artifactId>driver-binary-downloader-maven-plugin</artifactId>
+                        <version>${driver-binary-downloader-maven-plugin.version}</version>
+                        <configuration>
+                            <rootStandaloneServerDirectory>${project.basedir}/src/test/resources/selenium_standalone_binaries</rootStandaloneServerDirectory>
+                            <downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
+                            <customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
+                            <overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>selenium</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--<plugin>-->
+                        <!--<groupId>org.apache.maven.plugins</groupId>-->
+                        <!--<artifactId>maven-surefire-plugin</artifactId>-->
+                        <!--<version>${maven-surefire-plugin.version}</version>-->
+                        <!--<configuration>-->
+                            <!--<parallel>methods</parallel>-->
+                            <!--<threadCount>${threads}</threadCount>-->
+                            <!--<systemPropertyVariables>-->
+                                <!--<browser>${browser}</browser>-->
+                                <!--<headless>${headless}</headless>-->
+                                <!--<remoteDriver>${remote}</remoteDriver>-->
+                                <!--<gridURL>${seleniumGridURL}</gridURL>-->
+                                <!--<desiredPlatform>${platform}</desiredPlatform>-->
+                                <!--<desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>-->
+                                <!--<screenshotDirectory>${screenshotDirectory}</screenshotDirectory>-->
+                                <!--&lt;!&ndash;Set properties passed in by the driver binary downloader&ndash;&gt;-->
+                                <!--<webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>-->
+                                <!--<webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>-->
+                                <!--<webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>-->
+                                <!--<webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>-->
+                                <!--<webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>-->
+                            <!--</systemPropertyVariables>-->
+                        <!--</configuration>-->
+                    <!--</plugin>-->
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-failsafe-plugin</artifactId>
+                        <version>${maven-failsafe-plugin.version}</version>
+                        <configuration>
+                            <parallel>methods</parallel>
+                            <threadCount>${threads}</threadCount>
+                            <systemPropertyVariables>
+                                <browser>${browser}</browser>
+                                <headless>${headless}</headless>
+                                <remoteDriver>${remote}</remoteDriver>
+                                <gridURL>${seleniumGridURL}</gridURL>
+                                <desiredPlatform>${platform}</desiredPlatform>
+                                <desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>
+                                <screenshotDirectory>${screenshotDirectory}</screenshotDirectory>
+                                <!--Set properties passed in by the driver binary downloader-->
+                                <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
+                                <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
+                                <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
+                                <webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
+                                <webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>
+                            </systemPropertyVariables>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>integration-test</goal>
+                                    <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- PARALLEL CUCUMBER https://github.com/temyers/cucumber-jvm-parallel-plugin-->
+                    <plugin>
+                        <groupId>com.github.temyers</groupId>
+                        <artifactId>cucumber-jvm-parallel-plugin</artifactId>
+                        <version>5.0.0</version>
+                        <executions>
+                            <execution>
+                                <id>generateRunners</id>
+                                <phase>generate-test-sources</phase>
+                                <goals>
+                                    <goal>generateRunners</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- Mandatory -->
+                                    <!-- List of package names to scan for glue code. -->
+                                    <glue>
+                                        <package>cucumberskeleton</package>
+                                        <!--<package>com.example.other</package>-->
+                                    </glue>
+                                    <!-- These are optional, with the default values -->
+                                    <!-- Where to output the generated tests -->
+                                    <outputDirectory>${project.build.directory}/generated-test-sources/cucumber</outputDirectory>
+                                    <!-- The directory, which must be in the root of the runtime classpath, containing your feature files.  -->
+                                    <featuresDirectory>src/test/resources/cucumberskeleton/</featuresDirectory>
+                                    <!-- Directory where the cucumber report files shall be written  -->
+                                    <cucumberOutputDir>target/cucumber-parallel</cucumberOutputDir>
+                                    <!-- List of cucumber plugins. When none are provided the json formatter is used. For more
+                                         advanced usage see section about configuring cucumber plugins -->
+                                    <plugins>
+                                        <plugin>
+                                            <name>json</name>
+                                        </plugin>
+                                        <!--<plugin>-->
+                                            <!--<name>com.example.CustomHtmlFormatter</name>-->
+                                            <!--<extension>html</extension>-->
+                                        <!--</plugin>-->
+                                    </plugins>
+                                    <!-- CucumberOptions.strict property -->
+                                    <strict>true</strict>
+                                    <!-- CucumberOptions.monochrome property -->
+                                    <monochrome>true</monochrome>
+                                    <!-- The tags to run, maps to CucumberOptions.tags property. Default is no tags. -->
+                                    <!--<tags>-->
+                                        <!--<tag>@billing</tag>-->
+                                        <!--<tag>~@billing</tag>-->
+                                        <!--<tag>@important</tag>-->
+                                        <!--<tag>@important,@billing</tag>-->
+                                    <!--</tags>-->
+                                    <!-- Generate TestNG runners instead of JUnit ones. -->
+                                    <useTestNG>true</useTestNG>
+                                    <!-- The naming scheme to use for the generated test classes.  One of ['simple', 'feature-title', 'pattern'] -->
+                                    <namingScheme>simple</namingScheme>
+                                    <!-- The class naming pattern to use.  Only required/used if naming scheme is 'pattern'.-->
+                                    <namingPattern>Parallel{c}IT</namingPattern>
+                                    <!-- One of [SCENARIO, FEATURE]. SCENARIO generates one runner per scenario.  FEATURE generates a runner per feature. -->
+                                    <parallelScheme>SCENARIO</parallelScheme>
+                                    <!-- Specify a custom template for the generated sources (this is a path relative to the project base directory) -->
+                                    <!--<customVmTemplate>src/test/resources/cucumber-custom-runner.vm</customVmTemplate>-->
+                                    <!-- Specify a custom package name for generated sources. Default is no package.-->
+                                    <!--<packageName>com.example</packageName>-->
+
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+
+
+</project>
