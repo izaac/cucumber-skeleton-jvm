@@ -1,16 +1,22 @@
 package cucumberskeleton;
 
+import cucumberskeleton.config.DriverFactory;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
 import cucumber.api.java.en.Then;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class MyStepdefs {
+
+    private RemoteWebDriver driver = new DriverFactory().getDriver();
+
     @Given("^I have (\\d+) cukes in my belly$")
     public void iHaveCukesInMyBelly(int arg0) throws InterruptedException {
+        driver.get("https://amazon.com");
         Thread.sleep(3000);
         assertEquals(arg0, 42);
     }
