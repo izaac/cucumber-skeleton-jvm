@@ -1,5 +1,6 @@
 package cucumberskeleton;
 
+import cucumberskeleton.config.DriverFactory;
 import cucumberskeleton.pages.HomePage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import cucumber.api.PendingException;
@@ -12,9 +13,13 @@ import static org.testng.Assert.assertTrue;
 
 public class MyStepdefs {
 
+    private HomePage home;
+
     @Given("^I have (\\d+) cukes in my belly$")
     public void iHaveCukesInMyBelly(int arg0) throws InterruptedException {
-        HomePage home = new HomePage();
+        home = new HomePage();
+        home.open();
+        home.quitDriver();
         Thread.sleep(3000);
         assertEquals(arg0, 42);
     }
