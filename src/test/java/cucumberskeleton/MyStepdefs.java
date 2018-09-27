@@ -1,7 +1,6 @@
 package cucumberskeleton;
 
-import cucumberskeleton.config.DriverFactory;
-import cucumberskeleton.utils.GetHostUrl;
+import cucumberskeleton.pages.HomePage;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -13,12 +12,9 @@ import static org.testng.Assert.assertTrue;
 
 public class MyStepdefs {
 
-    private RemoteWebDriver driver = new DriverFactory().getDriver();
-
     @Given("^I have (\\d+) cukes in my belly$")
     public void iHaveCukesInMyBelly(int arg0) throws InterruptedException {
-        GetHostUrl url = new GetHostUrl();
-        driver.get(url.getUrl());
+        HomePage home = new HomePage();
         Thread.sleep(3000);
         assertEquals(arg0, 42);
     }
