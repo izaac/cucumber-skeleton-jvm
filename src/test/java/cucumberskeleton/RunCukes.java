@@ -1,11 +1,5 @@
 package cucumberskeleton;
 
-//import java.io.File;
-//import java.text.SimpleDateFormat;
-//import java.util.Date;
-//import java.util.HashMap;
-//import java.util.Map;
-
 import cucumber.api.CucumberOptions;
 import cucumber.api.testng.AbstractTestNGCucumberTests;
 import org.testng.annotations.DataProvider;
