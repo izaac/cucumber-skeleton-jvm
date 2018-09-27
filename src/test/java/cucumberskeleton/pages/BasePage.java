@@ -1,12 +1,12 @@
 package cucumberskeleton.pages;
 
 import cucumberskeleton.config.DriverFactory;
+import cucumberskeleton.utils.GetHostUrl;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -20,20 +20,16 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 
 public abstract class BasePage<T> {
-    private WebDriver driver;
+    protected WebDriver driver;
     private static final Logger LOGGER = Logger
             .getLogger(BasePage.class);
     private long LOAD_TIMEOUT = 30;
     private long REFRESH_RATE = 2;
     private int AJAX_ELEMENT_TIMEOUT = 10;
 
-    public BasePage() {
-        this.driver = new DriverFactory().getDriver();
-    }
+    public BasePage() { }
 
     public BasePage(long loadTimeout, long pollingRate) {
-        this.driver = new DriverFactory().getDriver();
-
         this.LOAD_TIMEOUT = loadTimeout;
         this.REFRESH_RATE = pollingRate;
     }
@@ -41,8 +37,8 @@ public abstract class BasePage<T> {
     public T openPage(Class<T> clazz) {
         T page = null;
         try {
-            AjaxElementLocatorFactory ajaxElemFactory = new AjaxElementLocatorFactory(driver, AJAX_ELEMENT_TIMEOUT);
-            page = PageFactory.initElements(driver, clazz);
+            AjaxElementLocatorFactory ajaxElemFactory = new AjaxElementLocatorFactory(this.driver, AJAX_ELEMENT_TIMEOUT);
+            page = PageFactory.initElements(this.driver, clazz);
             PageFactory.initElements(ajaxElemFactory, page);
             ExpectedCondition pageLoadCondition = ((BasePage) page).getPageLoadCondition();
             waitForPageToLoad(pageLoadCondition);
@@ -54,8 +50,15 @@ public abstract class BasePage<T> {
         return page;
     }
 
+    public void quitDriver(){
+        if (null != this.driver) {
+            this.driver.quit();
+            this.driver = null;
+        }
+    }
+
     private void waitForPageToLoad(ExpectedCondition pageLoadCondition) {
-        Wait wait = new FluentWait(new DriverFactory().getDriver())
+        Wait wait = new FluentWait(this.driver)
                 .withTimeout(Duration.ofSeconds(LOAD_TIMEOUT))
                 .pollingEvery(Duration.ofSeconds(REFRESH_RATE));
 
@@ -70,8 +73,7 @@ public abstract class BasePage<T> {
                 imageFolder.mkdir();
             }
             String imagePath = imageFolder.getAbsolutePath() + "/" + imageName;
-            driver = new DriverFactory().getDriver();
-            File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+            File scrFile = ((TakesScreenshot)this.driver).getScreenshotAs(OutputType.FILE);
             FileUtils.copyFile(scrFile, new File(imageName));
 
         } catch (IOException e) {
@@ -79,7 +81,6 @@ public abstract class BasePage<T> {
             throw new IllegalStateException("Error taking screenshot");
         }
     }
-
 
     protected abstract ExpectedCondition getPageLoadCondition();
 }
