@@ -1,8 +1,6 @@
 package cucumberskeleton;
 
-import cucumberskeleton.config.DriverFactory;
 import cucumberskeleton.pages.HomePage;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.When;
