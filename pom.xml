@@ -28,7 +28,7 @@
         <browser>firefox</browser>
         <hostUrl>https://amazon.com</hostUrl>
         <environment>qa</environment>
-        <overwrite.binaries>false</overwrite.binaries>
+        <overwrite.binaries>true</overwrite.binaries>
         <headless>true</headless>
         <remote>false</remote>
         <seleniumGridURL/>
@@ -137,6 +137,8 @@
                             <rootStandaloneServerDirectory>${project.basedir}/src/test/resources/selenium_standalone_binaries</rootStandaloneServerDirectory>
                             <downloadedZipFileDirectory>${project.basedir}/src/test/resources/selenium_standalone_zips</downloadedZipFileDirectory>
                             <customRepositoryMap>${project.basedir}/src/test/resources/RepositoryMap.xml</customRepositoryMap>
+                            <!--<onlyGetLatestVersions>true</onlyGetLatestVersions>-->
+                            <!--<onlyGetDriversForHostOperatingSystem>true</onlyGetDriversForHostOperatingSystem>-->
                             <overwriteFilesThatExist>${overwrite.binaries}</overwriteFilesThatExist>
                         </configuration>
                         <executions>
