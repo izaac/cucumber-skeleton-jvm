@@ -25,7 +25,7 @@
             </version>
         </driver>
         <driver id="googlechrome">
-            <version id="2.37">
+            <version id="2.42">
                 <bitrate thirtytwobit="true" sixtyfourbit="true">
                     <filelocation>https://chromedriver.storage.googleapis.com/2.37/chromedriver_win32.zip</filelocation>
                     <hash>fe708aac4eeb919a4ce26cf4aa52a2dacc666a2f</hash>
@@ -126,10 +126,10 @@
     </linux>
     <osx>
         <driver id="googlechrome">
-            <version id="2.37">
+            <version id="2.42">
                 <bitrate sixtyfourbit="true">
-                    <filelocation>https://chromedriver.storage.googleapis.com/2.37/chromedriver_mac64.zip</filelocation>
-                    <hash>714e7abb1a7aeea9a8997b64a356a44fb48f5ef4</hash>
+                    <filelocation>https://chromedriver.storage.googleapis.com/2.42/chromedriver_mac64.zip</filelocation>
+                    <hash>5e06155fae550b4712d96ec6533ac7b40e2d3a26</hash>
                     <hashtype>sha1</hashtype>
                 </bitrate>
             </version>
@@ -155,8 +155,8 @@
         <driver id="marionette">
             <version id="0.20.0">
                 <bitrate thirtytwobit="true" sixtyfourbit="true">
-                    <filelocation>https://github.com/mozilla/geckodriver/releases/download/v0.20.0/geckodriver-v0.20.0-macos.tar.gz</filelocation>
-                    <hash>87a63f8adc2767332f2eadb24dedff982ac4f902</hash>
+                    <filelocation>https://github.com/mozilla/geckodriver/releases/download/v0.23.0/geckodriver-v0.23.0-macos.tar.gz</filelocation>
+                    <hash>4340269571d26eea0242c0fc106097d0f4d4b059</hash>
                     <hashtype>sha1</hashtype>
                 </bitrate>
             </version>
