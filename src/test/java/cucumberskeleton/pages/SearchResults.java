@@ -8,41 +8,26 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class HomePage extends BasePage {
+public class SearchResults extends BasePage {
 
     private DriverFactory driverFactory;
 
-    public HomePage() {
+    public SearchResults() {
         super();
     }
 
-    @FindBy(id = "twotabsearchtextbox")
-    private WebElement searchbox;
-
-    @FindBy(id = "nav-search-submit-text")
-    private WebElement submittext;
+    @FindBy(id = "s-result-info-bar")
+    private WebElement searchresultsinfobar;
 
     @Override
     protected ExpectedCondition getPageLoadCondition() {
-        return ExpectedConditions.visibilityOf(searchbox);
-    }
-    public HomePage open(String url) {
-        this.driverFactory = new DriverFactory();
-        this.driver = this.driverFactory.getDriver();
-        this.driver.navigate().to(url);
-        return (HomePage) openPage(HomePage.class);
+        return ExpectedConditions.visibilityOf(searchresultsinfobar);
     }
 
-    public HomePage open() {
+    public SearchResults open() {
         this.driverFactory = new DriverFactory();
         this.driver = this.driverFactory.getDriver();
         this.driver.navigate().to(new GetHostUrl().getUrl());
-        return (HomePage) openPage(HomePage.class);
-    }
-
-   public SearchResults doSearch(String keyword) {
-        searchbox.sendKeys(keyword);
-        submittext.click();
         return (SearchResults) openPage(SearchResults.class);
-   }
+    }
 }
