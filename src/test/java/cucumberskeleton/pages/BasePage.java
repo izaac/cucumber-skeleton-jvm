@@ -1,7 +1,5 @@
 package cucumberskeleton.pages;
 
-import cucumberskeleton.config.DriverFactory;
-import cucumberskeleton.utils.GetHostUrl;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -32,6 +30,12 @@ public abstract class BasePage<T> {
     public BasePage(long loadTimeout, long pollingRate) {
         this.LOAD_TIMEOUT = loadTimeout;
         this.REFRESH_RATE = pollingRate;
+    }
+
+    public BasePage(long loadTimeout, long pollingRate, int ajaxElemTimeout) {
+        this.LOAD_TIMEOUT = loadTimeout;
+        this.REFRESH_RATE = pollingRate;
+        this.AJAX_ELEMENT_TIMEOUT = ajaxElemTimeout;
     }
 
     public T openPage(Class<T> clazz) {
@@ -69,12 +73,16 @@ public abstract class BasePage<T> {
         try {
             String start_time = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new java.util.Date());
             File imageFolder = new File(System.getProperty("user.dir") + "/target/screenshots");
+            boolean created = false;
             if(!imageFolder.exists()){
-                imageFolder.mkdir();
+                created = imageFolder.mkdir();
             }
-            String imagePath = imageFolder.getAbsolutePath() + "/" + imageName;
-            File scrFile = ((TakesScreenshot)this.driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(scrFile, new File(imageName));
+            if (created) {
+                File scrFile = ((TakesScreenshot)this.driver).getScreenshotAs(OutputType.FILE);
+                FileUtils.copyFile(scrFile, new File(imageName + '-' + start_time));
+            } else {
+                LOGGER.error("Error, screenshots folder was not created");
+            }
 
         } catch (IOException e) {
             LOGGER.error("Error",e);
