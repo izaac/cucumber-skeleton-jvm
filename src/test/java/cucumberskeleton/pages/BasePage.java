@@ -18,14 +18,14 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 
 public abstract class BasePage<T> {
-    protected WebDriver driver;
+    WebDriver driver;
     private static final Logger LOGGER = Logger
             .getLogger(BasePage.class);
     private long LOAD_TIMEOUT = 30;
     private long REFRESH_RATE = 2;
     private int AJAX_ELEMENT_TIMEOUT = 10;
 
-    public BasePage() { }
+    BasePage() { }
 
     public BasePage(long loadTimeout, long pollingRate) {
         this.LOAD_TIMEOUT = loadTimeout;
@@ -38,8 +38,8 @@ public abstract class BasePage<T> {
         this.AJAX_ELEMENT_TIMEOUT = ajaxElemTimeout;
     }
 
-    public T openPage(Class<T> clazz) {
-        T page = null;
+    T openPage(Class<T> clazz) {
+        T page;
         try {
             AjaxElementLocatorFactory ajaxElemFactory = new AjaxElementLocatorFactory(this.driver, AJAX_ELEMENT_TIMEOUT);
             page = PageFactory.initElements(this.driver, clazz);

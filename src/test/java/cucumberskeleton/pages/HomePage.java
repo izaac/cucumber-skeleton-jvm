@@ -3,7 +3,6 @@ package cucumberskeleton.pages;
 import cucumberskeleton.config.DriverFactory;
 import cucumberskeleton.utils.GetHostUrl;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,9 +17,6 @@ public class HomePage extends BasePage {
 
     @FindBy(id = "twotabsearchtextbox")
     private WebElement searchbox;
-
-    @FindBy(id = "nav-search-submit-text")
-    private WebElement submittext;
 
     @Override
     protected ExpectedCondition getPageLoadCondition() {
@@ -39,10 +35,4 @@ public class HomePage extends BasePage {
         this.driver.navigate().to(new GetHostUrl().getUrl());
         return (HomePage) openPage(HomePage.class);
     }
-
-   public SearchResults doSearch(String keyword) {
-        searchbox.sendKeys(keyword);
-        submittext.click();
-        return (SearchResults) openPage(SearchResults.class);
-   }
 }
