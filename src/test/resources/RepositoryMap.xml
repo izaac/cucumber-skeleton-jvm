@@ -90,20 +90,21 @@
                 </bitrate>
             </version>
         </driver>
-        <driver id="phantomjs">
-            <version id="1.9.8">
-                <bitrate sixtyfourbit="true">
-                    <filelocation>https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2</filelocation>
-                    <hash>d29487b2701bcbe3c0a52bc176247ceda4d09d2d</hash>
-                    <hashtype>sha1</hashtype>
-                </bitrate>
-                <bitrate thirtytwobit="true">
-                    <filelocation>https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-i686.tar.bz2</filelocation>
-                    <hash>efac5ae5b84a4b2b3fa845e8390fca39e6e637f2</hash>
-                    <hashtype>sha1</hashtype>
-                </bitrate>
-            </version>
-        </driver>
+        <!--DEPRECATED-->
+        <!--<driver id="phantomjs">-->
+            <!--<version id="1.9.8">-->
+                <!--<bitrate sixtyfourbit="true">-->
+                    <!--<filelocation>https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-x86_64.tar.bz2</filelocation>-->
+                    <!--<hash>d29487b2701bcbe3c0a52bc176247ceda4d09d2d</hash>-->
+                    <!--<hashtype>sha1</hashtype>-->
+                <!--</bitrate>-->
+                <!--<bitrate thirtytwobit="true">-->
+                    <!--<filelocation>https://bitbucket.org/ariya/phantomjs/downloads/phantomjs-1.9.8-linux-i686.tar.bz2</filelocation>-->
+                    <!--<hash>efac5ae5b84a4b2b3fa845e8390fca39e6e637f2</hash>-->
+                    <!--<hashtype>sha1</hashtype>-->
+                <!--</bitrate>-->
+            <!--</version>-->
+        <!--</driver>-->
         <driver id="marionette">
             <version id="0.20.0">
                 <bitrate sixtyfourbit="true">
@@ -128,7 +129,7 @@
         <driver id="googlechrome">
             <version id="2.45">
                 <bitrate sixtyfourbit="true">
-                    <filelocation>https://chromedriver.storage.googleapis.com/2.42/chromedriver_mac64.zip</filelocation>
+                    <filelocation>https://chromedriver.storage.googleapis.com/2.45/chromedriver_mac64.zip</filelocation>
                     <hash>42cd0659e4d16927f06aac74fdafa34b7d760a76</hash>
                     <hashtype>sha1</hashtype>
                 </bitrate>
