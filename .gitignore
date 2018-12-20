@@ -1,7 +1,7 @@
 .DS_Store
 .classpath
 .settings/
-cucumberskeleton.iml
+*.iml
 src/test/resources/selenium_standalone_binaries/
 src/test/resources/selenium_standalone_zips/
 .idea/

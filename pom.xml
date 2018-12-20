@@ -15,16 +15,16 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>10</java.version>
+        <java.version>11</java.version>
         <!-- Dependency versions -->
         <selenium.version>3.141.59</selenium.version>
         <testng.version>6.14.3</testng.version>
         <!-- Plugin versions -->
         <driver-binary-downloader-maven-plugin.version>1.0.17</driver-binary-downloader-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-        <maven-failsafe-plugin.version>2.22.0</maven-failsafe-plugin.version>
+        <maven-failsafe-plugin.version>3.0.0-M2</maven-failsafe-plugin.version>
         <!-- Configurable variables -->
-        <threads>1</threads>
+        <threads>2</threads>
         <browser>firefox</browser>
         <hostUrl>https://amazon.com</hostUrl>
         <environment>qa</environment>
@@ -89,35 +89,41 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-core</artifactId>
             <version>${cucumber_version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- http://mvnrepository.com/artifact/io.cucumber/cucumber-java -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-java</artifactId>
             <version>${cucumber_version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- http://mvnrepository.com/artifact/io.cucumber/cucumber-picocontainer -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-picocontainer</artifactId>
             <version>${cucumber_version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/io.cucumber/cucumber-testng -->
         <dependency>
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-testng</artifactId>
             <version>${cucumber_version}</version>
+            <scope>test</scope>
         </dependency>
         <!-- http://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-server</artifactId>
-            <version>3.14.0</version>
+            <version>${selenium.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.vimalselvam</groupId>
             <artifactId>cucumber-extentsreport</artifactId>
-            <version>1.1.0</version>
+            <version>3.1.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -179,6 +185,14 @@
                         <artifactId>maven-failsafe-plugin</artifactId>
                         <version>${maven-failsafe-plugin.version}</version>
                         <configuration>
+                            <properties>
+                                <property>
+                                    <name>junit</name>
+                                    <value>false</value>
+                                    <name>surefire.testng.verbose</name>
+                                    <value>5</value>
+                                </property>
+                            </properties>
                             <parallel>methods</parallel>
                             <threadCount>${threads}</threadCount>
                             <systemPropertyVariables>
@@ -190,11 +204,12 @@
                                 <desiredBrowserVersion>${browserVersion}</desiredBrowserVersion>
                                 <screenshotDirectory>${screenshotDirectory}</screenshotDirectory>
                                 <!--Set properties passed in by the driver binary downloader-->
-                                <webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>
-                                <webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>
-                                <webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>
-                                <webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>
-                                <webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>
+                                <!--These should be filesystem paths-->
+                                <!--<webdriver.chrome.driver>${webdriver.chrome.driver}</webdriver.chrome.driver>-->
+                                <!--<webdriver.ie.driver>${webdriver.ie.driver}</webdriver.ie.driver>-->
+                                <!--<webdriver.opera.driver>${webdriver.opera.driver}</webdriver.opera.driver>-->
+                                <!--<webdriver.gecko.driver>${webdriver.gecko.driver}</webdriver.gecko.driver>-->
+                                <!--<webdriver.edge.driver>${webdriver.edge.driver}</webdriver.edge.driver>-->
                             </systemPropertyVariables>
                         </configuration>
                         <executions>
