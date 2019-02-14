@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 
@@ -40,6 +41,7 @@ public abstract class BasePage<T> {
 
     T openPage(Class<T> clazz) {
         T page;
+        String fileSeparator = FileSystems.getDefault().getSeparator();
         try {
             AjaxElementLocatorFactory ajaxElemFactory = new AjaxElementLocatorFactory(this.driver, AJAX_ELEMENT_TIMEOUT);
             page = PageFactory.initElements(this.driver, clazz);
@@ -47,7 +49,7 @@ public abstract class BasePage<T> {
             ExpectedCondition pageLoadCondition = ((BasePage) page).getPageLoadCondition();
             waitForPageToLoad(pageLoadCondition);
         } catch (NoSuchElementException e) {
-            String error_screenshot = System.getProperty("user.dir") + "\\target\\screenshots\\" + clazz.getSimpleName() + "_error.png";
+            String error_screenshot = System.getProperty("user.dir") + fileSeparator + "target" + fileSeparator + "screenshots" + fileSeparator + clazz.getSimpleName() + "_error.png";
             this.takeScreenShot(error_screenshot);
             throw new IllegalStateException(String.format("This is not the %s page", clazz.getSimpleName()));
         }

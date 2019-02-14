@@ -13,7 +13,7 @@ public class MyStepdefs {
 
     private HomePage home;
 
-    @Given("^I have (\\d+) cukes in my belly$")
+    @Given("I have {int} cukes in my belly")
     public void iHaveCukesInMyBelly(int arg0) throws InterruptedException {
         home = new HomePage();
         home.open();
@@ -22,7 +22,7 @@ public class MyStepdefs {
         assertEquals(arg0, 42);
     }
 
-    @When("I wait (\\d+) hour")
+    @When("I wait {int} hour")
     public void i_wait_hour(Integer arg0) throws InterruptedException {
         Thread.sleep(1000);
         assertEquals((int) arg0, 1);
