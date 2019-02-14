@@ -19,13 +19,14 @@
         <!-- Dependency versions -->
         <selenium.version>3.141.59</selenium.version>
         <testng.version>6.14.3</testng.version>
+        <commons-io.version>2.6</commons-io.version>
         <!-- Plugin versions -->
         <driver-binary-downloader-maven-plugin.version>1.0.17</driver-binary-downloader-maven-plugin.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M2</maven-failsafe-plugin.version>
         <!-- Configurable variables -->
         <threads>2</threads>
-        <browser>firefox</browser>
+        <browser>chrome</browser>
         <hostUrl>https://amazon.com</hostUrl>
         <environment>qa</environment>
         <overwrite.binaries>true</overwrite.binaries>
@@ -35,7 +36,7 @@
         <platform/>
         <browserVersion/>
         <screenshotDirectory>${project.build.directory}/screenshots</screenshotDirectory>
-        <cucumber_version>3.0.2</cucumber_version>
+        <cucumber_version>4.2.0</cucumber_version>
         <!--<maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>-->
     </properties>
     <build>
@@ -70,6 +71,12 @@
             <artifactId>testng</artifactId>
             <version>${testng.version}</version>
             <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>${commons-io.version}</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/log4j/log4j -->
         <dependency>

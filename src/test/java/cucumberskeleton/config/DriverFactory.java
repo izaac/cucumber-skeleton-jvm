@@ -3,8 +3,7 @@ package cucumberskeleton.config;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import static cucumberskeleton.config.DriverType.FIREFOX;
-import static cucumberskeleton.config.DriverType.valueOf;
+import static cucumberskeleton.config.DriverType.*;
 
 public class DriverFactory {
 
@@ -15,7 +14,7 @@ public class DriverFactory {
     private final String systemArchitecture = System.getProperty("os.arch");
 
     public DriverFactory() {
-        DriverType driverType = FIREFOX;
+        DriverType driverType = CHROME;
         String browser = System.getProperty("browser", driverType.toString()).toUpperCase();
         try {
             driverType = valueOf(browser);
